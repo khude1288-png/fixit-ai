@@ -8,4 +8,45 @@
   <body>
     <div id="root"></div>
   </body>
-</html>
+</html> <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FixIt AI - Grammar & Spell Checker</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d0d0d;color:#f0f0f0;font-family:'Courier New',monospace;height:100vh;display:flex;flex-direction:column}
+.header{padding:20px 32px;border-bottom:1px solid #2a2a2a;display:flex;align-items:center;gap:12px}
+.logo{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#00e5a0,#00b4d8);display:flex;align-items:center;justify-content:center;font-size:16px}
+.title{font-size:17px;font-weight:700}.subtitle{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:.5px}
+.main{flex:1;display:grid;grid-template-columns:1fr 1fr;height:calc(100vh - 81px)}
+.panel{display:flex;flex-direction:column;border-right:1px solid #2a2a2a}
+.panel-header{padding:12px 18px;border-bottom:1px solid #2a2a2a;display:flex;justify-content:space-between;align-items:center}
+.label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+textarea{flex:1;background:transparent;border:none;outline:none;color:#f0f0f0;font-family:'Courier New',monospace;font-size:14px;line-height:1.7;padding:18px;resize:none;caret-color:#00e5a0}
+textarea::placeholder{color:#333}
+.footer{padding:12px 18px;border-top:1px solid #2a2a2a;display:flex;gap:8px}
+.btn-check{padding:8px 20px;background:#00e5a0;color:#000;border:none;border-radius:6px;cursor:pointer;font-family:'Courier New',monospace;font-weight:700;font-size:13px}
+.btn-check:disabled{background:#333;color:#666;cursor:not-allowed}
+.btn-clear,.btn-copy{padding:8px 14px;background:transparent;color:#666;border:1px solid #2a2a2a;border-radius:6px;cursor:pointer;font-family:'Courier New',monospace;font-size:13px}
+.btn-copy{margin-left:auto}
+.output-panel{display:flex;flex-direction:column}
+.stats{display:flex;gap:14px;padding:10px 18px;border-bottom:1px solid #2a2a2a;background:#161616}
+.stat{font-size:11px;color:#666;display:flex;align-items:center;gap:4px}
+.dot{width:6px;height:6px;border-radius:50%}
+.stat-num{font-weight:700;font-size:13px}
+.output-content{flex:1;padding:18px;overflow-y:auto}
+.fixed-text{font-size:14px;line-height:1.8;white-space:pre-wrap;word-break:break-word}
+.placeholder{color:#333;font-size:13px;line-height:1.8}
+.diff{margin-top:20px;border-top:1px solid #2a2a2a;padding-top:16px}
+.diff-label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:12px}
+.change-item{display:flex;gap:8px;margin-bottom:8px;padding:8px 10px;border-radius:6px;background:#1e1e1e;border:1px solid #2a2a2a;align-items:flex-start}
+.badge{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;flex-shrink:0;margin-top:2px}
+.badge-spelling{background:#ff4d6d22;color:#ff4d6d;border:1px solid #ff4d6d44}
+.badge-grammar{background:#ffd16622;color:#ffd166;border:1px solid #ffd16644}
+.badge-punctuation{background:#00e5a022;color:#00e5a0;border:1px solid #00e5a044}
+.wrong{color:#ff4d6d;text-decoration:line-through}.right{color:#00e5a0;font-weight:700}.reason{color:#666;font-size:12px}
+.no-errors{padding:16px;text-align:center;color:#00e5a0;font-size:13px;margin-top:16px;border:1px solid #00e5a040;border-radius:8px;background:#00e5a010}
+.lang-tag{font-size:11px;padding:2px 8px;background:#00e5a020;border:1px solid #00e5a040;border-radius:4px;color:#00e5a0}
+.spinner{width:13px;height:13px;border:2px solid #000;border-top:2px solid transparent;border-radius:50%;animation:spin .6s
